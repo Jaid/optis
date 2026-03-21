@@ -18,6 +18,6 @@ jobs:
       - name: install
         run: bun install --frozen-lockfile
       - name: lint
-        run: bun x eslint .
+        run: bun --bun ./node_modules/.bin/eslint .
       - name: test
         run: bun run test
