@@ -1,1 +1,2 @@
-export default 1 // TODO Implement actual functionality
+export {default} from './index.ts'
+export * from './index.ts'

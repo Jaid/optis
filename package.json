@@ -2,13 +2,18 @@
   "name": "optis",
   "version": "0.1.0",
   "type": "module",
+  "description": "helper for options objects",
   "repository": {
     "type": "git",
     "url": "git@github.com:Jaid/optis.git"
   },
+  "main": "src/main.ts",
   "scripts": {
-    "test": "bun test ./test/*.test.ts",
-    "release": "fd --unrestricted --full-path 'dist[\\\\/]package[\\\\/][\\w-]+[\\\\/]production[\\\\/]package.json' --exec bun publish --cwd {//}"
+    "release": "fd --unrestricted --full-path 'dist[\\\\/]package[\\\\/][\\w-]+[\\\\/]production[\\\\/]package.json' --exec bun publish --cwd {//}",
+    "test": "bun test ./test/*.test.ts"
+  },
+  "dependencies": {
+    "type-fest": "^5.5.0"
   },
   "devDependencies": {
     "@types/bun": "^1.3.11",
