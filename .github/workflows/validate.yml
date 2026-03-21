@@ -1,0 +1,23 @@
+name: validate
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v5.0.0
+      - name: setupBun
+        uses: oven-sh/setup-bun@v2.0.2
+        with:
+          bun-version: latest
+      - name: install
+        run: bun install --frozen-lockfile
+      - name: lint
+        run: bun x eslint .
+      - name: test
+        run: bun run test
