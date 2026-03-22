@@ -7,7 +7,9 @@
     "type": "git",
     "url": "git@github.com:Jaid/optis.git"
   },
-  "main": "src/main.ts",
+  "exports": {
+    ".": "./src/main.ts"
+  },
   "scripts": {
     "release": "fd --unrestricted --full-path 'dist[\\\\/]package[\\\\/][\\w-]+[\\\\/]production[\\\\/]package.json' --exec bun publish --cwd {//}",
     "test": "bun test ./test/*.test.ts"
