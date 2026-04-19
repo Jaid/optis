@@ -1,99 +1,114 @@
-import type {InputOptions, MakerOptions} from '../src/main.ts'
-import type {Arrayable} from 'type-fest'
-
 import {describe, expect, test} from 'bun:test'
 
-import optis, {makeOptions, RequiredOptionsError, withDefaults} from '../src/main.ts'
+import optis, {ProcessedOptionsMap, RequiredOptionsError} from '../src/main.ts'
 
 describe('optis', () => {
-  test('default export aliases the main helper and exposes helpers', () => {
-    expect(optis).toBe(makeOptions as typeof optis)
+  test('default export exposes helpers', () => {
     expect(optis.RequiredOptionsError).toBe(RequiredOptionsError)
-    expect(optis.withDefaults).toBe(withDefaults)
+    expect(optis.ProcessedOptionsMap).toBe(ProcessedOptionsMap)
+    expect(optis.typed).toBe(optis as unknown as typeof optis.typed)
   })
 })
-describe('makeOptions', () => {
-  test('merges defaults and user input', () => {
-    const defaultOptions = {
-      path: 'api' as Arrayable<string>,
-      host: 'localhost',
-    }
-    const makerOptions = {
-      defaultOptions,
-      requiredKeys: ['protocol'],
-    } as const satisfies MakerOptions.Static
-    type Options = InputOptions<{
-      defaults: typeof defaultOptions
-      optional: {
-        port: number
-      }
-      required: {
-        protocol: string
-      }
-    }, typeof makerOptions>
-    const outputOptions = makeOptions<Options>({
-      protocol: 'https',
-      port: 443,
-    }, makerOptions)
-    expect(outputOptions).toEqual({
-      path: 'api',
-      host: 'localhost',
-      protocol: 'https',
-      port: 443,
-    })
-  })
-  test('normalizes only keys that are actually present', () => {
-    let calls = 0
-    type Options = InputOptions<{
+describe('runtime processing', () => {
+  test('merges defaults and normalizes present keys', () => {
+    const schema = optis({
+      defaults: {
+        target: ' world ',
+      },
       normalizations: {
-        port: number
-      }
-      optional: {
-        port: number
-      }
-      required: {
-        protocol: string
-      }
-    }>
-    const result = makeOptions<Options>({
-      protocol: 'https',
-    }, {
-      requiredKeys: ['protocol'],
-      normalize: {
-        port: value => {
-          calls++
-          return (value ?? 0) + 1
-        },
+        target: (value: unknown) => String(value).trim(),
       },
     })
+    expect(schema.process()).toEqual({
+      target: 'world',
+    })
+    expect(schema.process({target: ' Bun '})).toEqual({
+      target: 'Bun',
+    })
+  })
+  test('normalizers only run for keys that are actually present', () => {
+    let calls = 0
+    const schema = optis({
+      normalizations: {
+        target: (value: unknown) => {
+          calls++
+          return String(value).toUpperCase()
+        },
+      },
+      optionalKeys: ['target'],
+    })
+    expect(schema.process({})).toEqual({})
     expect(calls).toBe(0)
-    expect(result).toEqual({
+  })
+  test('check and process validate required keys from required placeholders and requiredKeys', () => {
+    const schema = optis({
+      defaults: {
+        host: 'example.com',
+      },
+      required: {
+        protocol: '',
+      },
+      requiredKeys: ['path'],
+    })
+    const invalidOptions = {
+      path: '/',
+    } as unknown as optis.Parameter<typeof schema>
+    expect(() => schema.check(invalidOptions)).toThrow(RequiredOptionsError)
+    expect(() => schema.check({
+      path: '/',
+      protocol: 'https',
+    })).not.toThrow()
+    expect(schema.process({
+      path: '/',
+      protocol: 'https',
+    })).toEqual({
+      host: 'example.com',
+      path: '/',
       protocol: 'https',
     })
   })
-  test('throws RequiredOptionsError when a required key is missing at runtime', () => {
-    type Options = InputOptions<{
-      required: {
-        host: string
-        protocol: string
-      }
-    }>
-    let error: unknown
-    try {
-      makeOptions<Options>({
-        protocol: 'https',
-      } as Options['parameter'], {
-        requiredKeys: ['protocol', 'host'],
-      })
-    } catch (caughtError) {
-      error = caughtError
-    }
-    expect(error).toBeInstanceOf(RequiredOptionsError)
-    expect(error).toMatchObject({
-      message: 'Missing required option: host',
-      givenKeys: ['protocol'],
-      missingKeys: ['host'],
-      requiredKeys: ['protocol', 'host'],
+  test('process preserves identity when no runtime transforms are active', () => {
+    const schema = optis({
+      requiredKeys: ['apiKey'],
     })
+    const options = {
+      apiKey: 'secret',
+    }
+    expect(schema.process(options)).toBe(options)
+  })
+  test('extend composes runtime setup without mutating the base schema', () => {
+    const base = optis({
+      defaults: {
+        host: 'example.com',
+      },
+    })
+    const extended = base.extend({
+      prefix: 'api',
+    }).extendTyped<{
+      required: {
+        key: string
+      }
+    }>()
+    expect(base.process()).toEqual({
+      host: 'example.com',
+    })
+    expect(extended.process({
+      key: 'secret',
+    })).toEqual({
+      host: 'example.com',
+      key: 'secret',
+      prefix: 'api',
+    })
+  })
+  test('processMap returns a typed map wrapper', () => {
+    const schema = optis({
+      optionalKeys: ['target'],
+    })
+    const result = schema.processMap({
+      target: 'world',
+    })
+    expect(result).toBeInstanceOf(ProcessedOptionsMap)
+    expect(result.has('target')).toBe(true)
+    expect(result.get('target')).toBe('world')
   })
 })
