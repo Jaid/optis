@@ -20,7 +20,9 @@ jobs:
         run: bun install --frozen-lockfile
       - name: test
         run: bun run test
+      - name: build
+        run: bun run build:production
       - name: publish
-        run: bun publish
+        run: bun publish --cwd ./dist/optis/production
         env:
           NPM_CONFIG_TOKEN: ${{ secrets.npmToken }}
