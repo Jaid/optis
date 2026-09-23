@@ -24,7 +24,7 @@
     "eslint": "^10.11.0",
     "eslint-config-jaid": "^34.0.0",
     "tsconfig-jaid-bun": "^16.0.0",
-    "typescript": "^7.0.2"
+    "typescript": "npm:typescript-classic@6.0.4"
   },
   "funding": "https://github.com/sponsors/Jaid",
   "license": "MIT"
