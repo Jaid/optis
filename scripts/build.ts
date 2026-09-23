@@ -53,7 +53,7 @@ const writeRuntimeBundle = async () => {
   for (const artifact of result.outputs) {
     const relativePath = artifact.path.replace(/^\.[/\\]/u, '')
     const outputFile = `${outputFolder}/${relativePath}`
-    await Bun.$`mkdir -p ${dirname(outputFile)}`
+    await Bun.$`mkdir -p ${path.dirname(outputFile)}`
     await Bun.write(outputFile, artifact)
   }
 }
