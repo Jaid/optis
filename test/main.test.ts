@@ -26,7 +26,7 @@ describe('runtime processing', () => {
       target: 'Bun',
     })
   })
-  test('normalizers only run for keys that are actually present', () => {
+  test('normalization-only keys are optional and only normalized when present', () => {
     let calls = 0
     const schema = optis({
       normalizations: {
@@ -35,10 +35,11 @@ describe('runtime processing', () => {
           return String(value).toUpperCase()
         },
       },
-      optionalKeys: ['target'],
     })
-    expect(schema.process({})).toEqual({})
+    expect(schema.process()).toEqual({})
     expect(calls).toBe(0)
+    expect(schema.process({target: 'world'})).toEqual({target: 'WORLD'})
+    expect(calls).toBe(1)
   })
   test('check and process validate required keys from required placeholders and requiredKeys', () => {
     const schema = optis({

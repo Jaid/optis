@@ -77,7 +77,7 @@ type RequiredOf<SetupGeneric extends Setup> = SetupGeneric extends {required: in
 
 type RequiredKeysOf<SetupGeneric extends Setup> = SetupGeneric extends {requiredKeys: infer KeysGeneric extends KeyList} ? KeysGeneric : never
 
-type OptionalDeclaredOf<SetupGeneric extends Setup> = Merge<KeysToRecord<KeysToUnion<OptionalKeysOf<SetupGeneric>>>, OptionalOf<SetupGeneric>>
+type OptionalDeclaredOf<SetupGeneric extends Setup> = Merge<Merge<KeysToRecord<Extract<keyof NormalizationsOf<SetupGeneric>, string>>, KeysToRecord<KeysToUnion<OptionalKeysOf<SetupGeneric>>>>, OptionalOf<SetupGeneric>>
 
 type RequiredDeclaredOf<SetupGeneric extends Setup> = Merge<KeysToRecord<KeysToUnion<RequiredKeysOf<SetupGeneric>>>, RequiredOf<SetupGeneric>>
 type RequiredInputOf<SetupGeneric extends Setup> = Omit<RequiredDeclaredOf<SetupGeneric>, keyof DefaultsOf<SetupGeneric>>

@@ -17,6 +17,25 @@ const greetingSchema = optis({
 type _GreetingParameter = Expect<Equal<optis.Parameter<typeof greetingSchema>, {target?: string} | undefined>>
 type _GreetingProcessed = Expect<Equal<optis.Processed<typeof greetingSchema>, {target: string}>>
 
+const normalizationOnlySchema = optis({
+  normalizations: {
+    count: Number,
+  },
+})
+
+type _NormalizationOnlyParameter = Expect<Equal<optis.Parameter<typeof normalizationOnlySchema>, {count?: unknown} | undefined>>
+type _NormalizationOnlyProcessed = Expect<Equal<optis.Processed<typeof normalizationOnlySchema>, {count?: number}>>
+
+const requiredNormalizationSchema = optis({
+  normalizations: {
+    count: Number,
+  },
+  requiredKeys: ['count'] as const,
+})
+
+type _RequiredNormalizationParameter = Expect<Equal<optis.Parameter<typeof requiredNormalizationSchema>, {count: unknown}>>
+type _RequiredNormalizationProcessed = Expect<Equal<optis.Processed<typeof requiredNormalizationSchema>, {count: number}>>
+
 const greet = (options: optis.Parameter<typeof greetingSchema>) => {
   const processedOptions = greetingSchema.process(options)
   const target: string = processedOptions.target
