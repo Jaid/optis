@@ -36,8 +36,10 @@ type _SetupAliasMatchesNamespace = Expect<Equal<OptisSetup['requiredKeys'], opti
 type _ParameterAliasMatchesNamespace = Expect<Equal<OptisParameter<typeof schema>, optis.Parameter<typeof schema>>>
 type _ProcessedAliasMatchesNamespace = Expect<Equal<OptisProcessed<typeof schema>, optis.Processed<typeof schema>>>
 type _ProcessedMapAliasMatchesNamespace = Expect<Equal<OptisProcessedMap<typeof typedSchema>, optis.ProcessedMap<typeof typedSchema>>>
-type _SchemaAliasIsUsable = Expect<Equal<OptisParameter<ExampleSchema>, {apiKey: string
-  target?: string}>>
+type _SchemaAliasIsUsable = Expect<Equal<OptisParameter<ExampleSchema>, {
+  apiKey: string
+  target?: string
+}>>
 
 const greet = (options: OptisParameter<typeof schema>) => {
   const processedOptions: OptisProcessed<typeof schema> = schema.process(options)
@@ -53,7 +55,7 @@ const getMessage = (options: OptisProcessedMap<typeof typedSchema>) => {
 const compileOnly = (options: OptisParameter<ExampleSchema>) => {
   return options.target ? `${options.target}:${options.apiKey}` : options.apiKey
 }
-void greet
-void getMessage
-void compileOnly
-void typedFactory
+greet
+getMessage
+compileOnly
+typedFactory

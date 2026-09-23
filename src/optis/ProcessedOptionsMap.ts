@@ -26,7 +26,7 @@ class ProcessedOptionsMapRuntime<OptionsGeneric extends Record<string, unknown> 
   }
 
   forEach(callbackfn: (value: OptionsGeneric[KeyOf<OptionsGeneric>], key: KeyOf<OptionsGeneric>, map: this) => void, thisArg?: unknown) {
-    for (const [key, value] of this.map.entries()) {
+    for (const [key, value] of this.map) {
       callbackfn.call(thisArg, value, key, this)
     }
   }

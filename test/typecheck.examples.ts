@@ -75,8 +75,10 @@ const runtimeFirstSchema = optis({
   }
 }>()
 
-type _RuntimeFirstProcessed = Expect<Equal<optis.Processed<typeof runtimeFirstSchema>, {cwd: string
-  user?: string}>>
+type _RuntimeFirstProcessed = Expect<Equal<optis.Processed<typeof runtimeFirstSchema>, {
+  cwd: string
+  user?: string
+}>>
 
 const runRuntimeFirst = (options: optis.Parameter<typeof runtimeFirstSchema>) => {
   const processedOptions = runtimeFirstSchema.process(options)
@@ -97,8 +99,10 @@ const typeFirstSchema = optis.typed<{
   },
 })
 
-type _TypeFirstProcessed = Expect<Equal<optis.Processed<typeof typeFirstSchema>, {cwd: string
-  user?: string}>>
+type _TypeFirstProcessed = Expect<Equal<optis.Processed<typeof typeFirstSchema>, {
+  cwd: string
+  user?: string
+}>>
 
 const defaults = {
   host: 'example.com',
@@ -161,10 +165,10 @@ const useCivitaiSchema = (options: optis.Parameter<typeof civitaiSchema>) => {
   const baseProcessed = apiClientSchema.process(processedOptions)
   return `${baseProcessed.protocol}://${baseProcessed.host}/${processedOptions.prefix}`
 }
-void greet
-void withApiKey
-void compileOnly
-void greetMaybe
-void runRuntimeFirst
-void useApiClientSchema
-void useCivitaiSchema
+greet
+withApiKey
+compileOnly
+greetMaybe
+runRuntimeFirst
+useApiClientSchema
+useCivitaiSchema

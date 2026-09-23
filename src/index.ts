@@ -1,11 +1,4 @@
-import type {Dict as DictType,
-  Parameter as ParameterType,
-  ProcessedMap as ProcessedMapType,
-  Processed as ProcessedType,
-  Schema as SchemaType,
-  Setup as SetupType,
-  ToSetupFromInput,
-  TypedFactory as TypedFactoryType} from './optis/types.ts'
+import type {Dict as DictType, Parameter as ParameterType, ProcessedMap as ProcessedMapType, Processed as ProcessedType, Schema as SchemaType, Setup as SetupType, ToSetupFromInput, TypedFactory as TypedFactoryType} from './optis/types.ts'
 
 import {ProcessedOptionsMap as ProcessedOptionsMapValue} from './optis/ProcessedOptionsMap.ts'
 import {RequiredOptionsError as RequiredOptionsErrorValue} from './optis/RequiredOptionsError.ts'
@@ -33,7 +26,12 @@ attachSchemaBehavior(optis)
 Object.freeze(optis)
 
 export default optis
+export {ProcessedOptionsMap} from './optis/ProcessedOptionsMap.ts'
+export {RequiredOptionsError} from './optis/RequiredOptionsError.ts'
+export {optis}
+
 export type {Dict, Parameter, Processed, ProcessedMap, Schema, Setup, TypedFactory} from './optis/types.ts'
+
 export type {
   Dict as OptisDict,
   Parameter as OptisParameter,
@@ -43,4 +41,3 @@ export type {
   Setup as OptisSetup,
   TypedFactory as OptisTypedFactory,
 } from './optis/types.ts'
-export {optis, ProcessedOptionsMapValue as ProcessedOptionsMap, RequiredOptionsErrorValue as RequiredOptionsError}

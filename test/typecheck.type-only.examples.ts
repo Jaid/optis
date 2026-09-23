@@ -20,4 +20,4 @@ const compileOnly = (options: optis.Parameter<CompileTimeSchema>) => {
   const target: string = options.target
   return `Hello, ${target}!`
 }
-void compileOnly
+compileOnly

@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "type": "module",
   "description": "minimalistic library for building composable options processors",
+  "funding": "https://github.com/sponsors/Jaid",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Jaid/optis.git"
@@ -18,16 +20,14 @@
     "prepublishOnly": "bun --eval \"console.error('Publish ./dist/optis/production instead of the repository root.'); process.exit(1)\"",
     "test": "bun test --max-concurrency 1 ./test"
   },
+  "dependencies": {
+    "forward-slash-path": "0.3.0"
+  },
   "devDependencies": {
-    "@types/bun": "1.4.2",
     "eslint": "10.11.0",
     "eslint-config-jaid": "34.0.0",
     "tsconfig-jaid-bun": "16.0.0",
-    "typescript": "npm:typescript-classic@6.0.4"
-  },
-  "funding": "https://github.com/sponsors/Jaid",
-  "license": "MIT",
-  "dependencies": {
-    "forward-slash-path": "0.3.0"
+    "typescript": "npm:typescript-classic@6.0.4",
+    "@types/bun": "1.4.2"
   }
 }

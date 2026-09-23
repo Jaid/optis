@@ -12,8 +12,8 @@ const withNamespaceHelpers = (options: optis.Parameter<typeof schema>) => {
   const processedOptionsMap: optis.ProcessedMap<typeof schema> = schema.processMap(options)
   const processedOptionsMapClass: typeof ProcessedOptionsMap = optis.ProcessedOptionsMap
   const requiredOptionsErrorClass: typeof RequiredOptionsError = optis.RequiredOptionsError
-  void processedOptionsMapClass
-  void requiredOptionsErrorClass
+  processedOptionsMapClass
+  requiredOptionsErrorClass
   return [processedOptions, processedOptionsMap]
 }
 const withNamedAliases = (options: OptisParameter<typeof schema>) => {
@@ -21,5 +21,5 @@ const withNamedAliases = (options: OptisParameter<typeof schema>) => {
   const processedOptionsMap: OptisProcessedMap<typeof schema> = schema.processMap(options)
   return [processedOptions, processedOptionsMap]
 }
-void withNamespaceHelpers
-void withNamedAliases
+withNamespaceHelpers
+withNamedAliases

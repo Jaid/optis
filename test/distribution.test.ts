@@ -1,4 +1,5 @@
 import {test} from 'bun:test'
+
 import * as path from 'forward-slash-path'
 
 const runCommand = async (command: ReadonlyArray<string>, cwd: string) => {
