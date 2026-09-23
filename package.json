@@ -15,9 +15,8 @@
     }
   },
   "scripts": {
-    "build": "bun run readme && bun ./scripts/build.ts",
-    "build:production": "NODE_ENV=production bun run build",
-    "prepublishOnly": "bun --eval \"console.error('Publish ./dist/optis/production instead of the repository root.'); process.exit(1)\"",
+    "build:development": "bun run readme && bun ./scripts/build.ts",
+    "build": "NODE_ENV=production bun run build",
     "test": "bun test --max-concurrency 1 ./test",
     "readme": "bun tldw"
   },
