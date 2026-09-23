@@ -15,8 +15,8 @@
     }
   },
   "scripts": {
-    "build:development": "bun run readme && bun ./scripts/build.ts",
-    "build": "NODE_ENV=production bun run build",
+    "build:development": "bun scripts/build",
+    "build": "bun run readme && NODE_ENV=production bun scripts/build",
     "test": "bun test --max-concurrency 1 ./test",
     "readme": "bun tldw"
   },
