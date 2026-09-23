@@ -16,7 +16,6 @@
     "build": "bun ./scripts/build.ts",
     "build:production": "NODE_ENV=production bun run build",
     "prepublishOnly": "bun --eval \"console.error('Publish ./dist/optis/production instead of the repository root.'); process.exit(1)\"",
-    "release": "bun run build:production && bun publish --cwd ./dist/optis/production",
     "test": "bun test --max-concurrency 1 ./test"
   },
   "devDependencies": {
