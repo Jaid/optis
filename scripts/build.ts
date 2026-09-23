@@ -1,4 +1,4 @@
-import {dirname} from 'node:path'
+import * as path from 'forward-slash-path'
 
 type RootPackageJson = {
   author?: Record<string, unknown> | string
