@@ -19,15 +19,15 @@
     "test": "bun test --max-concurrency 1 ./test"
   },
   "devDependencies": {
-    "@types/bun": "^1.4.2",
-    "eslint": "^10.11.0",
-    "eslint-config-jaid": "^34.0.0",
-    "tsconfig-jaid-bun": "^16.0.0",
+    "@types/bun": "1.4.2",
+    "eslint": "10.11.0",
+    "eslint-config-jaid": "34.0.0",
+    "tsconfig-jaid-bun": "16.0.0",
     "typescript": "npm:typescript-classic@6.0.4"
   },
   "funding": "https://github.com/sponsors/Jaid",
   "license": "MIT",
   "dependencies": {
-    "forward-slash-path": "^0.3.0"
+    "forward-slash-path": "0.3.0"
   }
 }
