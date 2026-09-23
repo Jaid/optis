@@ -15,17 +15,19 @@
     }
   },
   "scripts": {
-    "build": "bun ./scripts/build.ts",
+    "build": "bun run readme && bun ./scripts/build.ts",
     "build:production": "NODE_ENV=production bun run build",
     "prepublishOnly": "bun --eval \"console.error('Publish ./dist/optis/production instead of the repository root.'); process.exit(1)\"",
-    "test": "bun test --max-concurrency 1 ./test"
+    "test": "bun test --max-concurrency 1 ./test",
+    "readme": "bun tldw"
   },
   "devDependencies": {
+    "@types/bun": "1.4.2",
     "eslint": "10.11.0",
     "eslint-config-jaid": "34.0.0",
     "forward-slash-path": "0.3.0",
+    "tldw": "9.7.0",
     "tsconfig-jaid-bun": "16.0.0",
-    "typescript": "npm:typescript-classic@6.0.4",
-    "@types/bun": "1.4.2"
+    "typescript": "npm:typescript-classic@6.0.4"
   }
 }
